@@ -1,12 +1,16 @@
 "use client";
 
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+import {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} from "@google/generative-ai";
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { FaSpinner } from "react-icons/fa";
-import bot from "../../public/ai-assistant.png"
-import user from "../../public/user.png"
-import Image from 'next/image';
+import bot from "../../public/ai-assistant.png";
+import user from "../../public/user.png";
+import Image from "next/image";
 
 const MODEL_NAME = "gemini-1.0-pro";
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY as string;
@@ -15,7 +19,11 @@ export default function Home() {
   const [history, setHistory] = useState<
     { role: "user" | "model"; content: string; timestamp: string }[]
   >([
-    { role: "model", content: "I am Slyme 2.0, your college advisor bot.", timestamp: "" },
+    {
+      role: "model",
+      content: "I am Slyme 2.0, your college advisor bot. I'm here to help you with college-related questions like selecting majors, understanding admission processes, and planning your career path.",
+      timestamp: "",
+    },
   ]);
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,9 +45,9 @@ export default function Home() {
     const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
     const generationConfig = {
-      temperature: 0.7, // Adjusted for more precise answers
+      temperature: 0.6, // Adjusted for more detailed and relevant responses
       topK: 1,
-      topP: 1,
+      topP: 0.9,
       maxOutputTokens: 2048,
     };
 
@@ -78,7 +86,9 @@ export default function Home() {
       const response = result.response;
 
       const timestamp = new Date().toLocaleTimeString();
-      const content = response.text() || "I'm unable to answer that at the moment. Try rephrasing your question.";
+      const content =
+        response.text() ||
+        "I'm unable to answer that at the moment. Try rephrasing your question.";
 
       setHistory((prevHistory) => [
         ...prevHistory,
@@ -89,10 +99,15 @@ export default function Home() {
       console.error("Error fetching response:", error);
       setHistory((prevHistory) => [
         ...prevHistory,
-        { role: "user", content: prompt, timestamp: new Date().toLocaleTimeString() },
+        {
+          role: "user",
+          content: prompt,
+          timestamp: new Date().toLocaleTimeString(),
+        },
         {
           role: "model",
-          content: "I'm currently unable to assist with this specific query. Please try a different question or rephrase your query.",
+          content:
+            "I'm currently unable to assist with this specific query. Please try a different question or rephrase your query.",
           timestamp: new Date().toLocaleTimeString(),
         },
       ]);
@@ -112,14 +127,17 @@ export default function Home() {
   // Auto-scroll to the bottom of the chat container when new messages are added
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [history]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 text-white">
       <div className="w-full max-w-2xl p-6 rounded-lg shadow-2xl glassmorphism">
-        <h1 className="text-3xl font-bold mb-6 text-center">College Advisor: Slyme 2.0</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center">
+          College Advisor: Slyme 2.0
+        </h1>
         <div
           ref={chatContainerRef}
           className="mb-4 max-h-96 overflow-y-auto p-4 rounded-lg bg-opacity-60 glassmorphism custom-scrollbar"
@@ -132,7 +150,11 @@ export default function Home() {
               }`}
             >
               <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center text-xl">
-                {message.role === "model" ? <Image src={bot} alt="bot" /> : <Image src={user} alt="user"/>}
+                {message.role === "model" ? (
+                  <Image src={bot} alt="bot" />
+                ) : (
+                  <Image src={user} alt="user" />
+                )}
               </div>
               <div
                 className={`ml-4 mr-4 p-4 rounded-lg max-w-xs ${
