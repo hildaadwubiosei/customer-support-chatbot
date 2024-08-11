@@ -1,87 +1,36 @@
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
----
+## Getting Started
 
-# AI Customer Support Chatbot
+First, run the development server:
 
-## Overview
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-This project is an AI-powered customer support chatbot built using Next.js and the Vercel AI SDK. The chatbot can handle user queries, provide relevant responses, and can be integrated into any website.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Features
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- **AI-Powered Responses**: Uses the Vercel AI SDK to generate responses to user queries.
-- **Contextual Responses**: Maintains context over multiple interactions.
-- **Deployable**: Easy deployment to Vercel with CI/CD setup.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Installation
+## Learn More
 
-### Development Setup
+To learn more about Next.js, take a look at the following resources:
 
-1. **Clone the repository**:
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-    ```bash
-    git clone https://github.com/Borngod/AI-Customer-Support.git
-    cd chatbot
-    ```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-2. **Install dependencies**:
+## Deploy on Vercel
 
-    ```bash
-    npm install
-    ```
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-3. **Create a `.env.local` file**:
-
-    Add your Vercel AI API key in the `.env.local` file:
-
-    ```env
-    NEXT_PUBLIC_VERCEL_AI_API_KEY=your-vercel-ai-api-key
-    ```
-
-4. **Run the development server**:
-
-    ```bash
-    npm run dev
-    ```
-
-5. **Open [http://localhost:3000](http://localhost:3000) to view it in your browser**.
-
-## Project Structure
-
-- **`/components`**: React components for the chatbot interface.
-- **`/pages/api`**: API endpoints to handle user queries and interact with the Vercel AI SDK.
-- **`/public`**: Static assets.
-- **`/styles`**: CSS styles.
-- **`/utils`**: Utility functions.
-
-
-
-## Deployment
-
-### Vercel
-
-1. **Deploy to Vercel**:
-
-    ```bash
-    vercel deploy
-    ```
-
-2. **Set environment variables on Vercel**:
-
-   Go to your Vercel dashboard, navigate to your project settings, and add the `NEXT_PUBLIC_VERCEL_AI_API_KEY` environment variable with your Vercel AI API key.
-
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add new feature'`).
-5. Push to the branch (`git push origin feature-branch`).
-6. Open a Pull Request.
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
