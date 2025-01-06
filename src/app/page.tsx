@@ -21,13 +21,15 @@ export default function Home() {
   >([
     {
       role: "model",
-      content: "I am Slyme 2.0, your college advisor bot. I'm here to help you with college-related questions like selecting majors, understanding admission processes, and planning your career path.",
+      content:
+        "I am Slyme 2.0, your college advisor bot. I'm here to help you with college-related questions like selecting majors, understanding admission processes, and planning your career path.",
       timestamp: "",
     },
   ]);
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [typingIndicator, setTypingIndicator] = useState<boolean>(false);
 
   // Set the initial timestamp on the client side
   useEffect(() => {
@@ -41,6 +43,7 @@ export default function Home() {
 
   async function runChat(prompt: string) {
     setLoading(true); // Start loader
+    setTypingIndicator(true); // Show typing indicator
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
@@ -113,6 +116,7 @@ export default function Home() {
       ]);
     } finally {
       setLoading(false); // Stop loader
+      setTypingIndicator(false); // Hide typing indicator
       setInput(""); // Clear the input field
     }
   }
@@ -172,6 +176,16 @@ export default function Home() {
               </div>
             </div>
           ))}
+          {typingIndicator && (
+            <div className="flex items-center space-x-2">
+              <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center text-xl">
+                <Image src={bot} alt="bot" />
+              </div>
+              <div className="ml-4 p-4 rounded-lg bg-gray-800 text-gray-300 max-w-xs">
+                <span>...</span>
+              </div>
+            </div>
+          )}
         </div>
         <form onSubmit={onSubmit} className="mb-4 flex">
           <input
